@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
     <title>鋒兄三七</title>
-<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src=" https://cdn.jsdelivr.net/npm/babel-standalone@6.26.0/babel.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6.26.0/babel.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,6 +23,8 @@
             padding: 10px;
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         .navbar a {
             color: white;
@@ -27,8 +32,8 @@
             padding: 10px 15px;
             border-radius: 5px;
             transition: 0.3s;
-            margin: 0 5px;
             cursor: pointer;
+            flex-shrink: 0;
         }
         .navbar a:hover {
             background: #0056b3;
@@ -41,26 +46,49 @@
             height: 80vh;
             border: none;
         }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .navbar a {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+            iframe {
+                height: 60vh;
+            }
+        }
     </style>
 </head>
 <body>
     <div id="root"></div>
     <script type="text/babel">
         function App() {
-            const [currentPage, setCurrentPage] = React.useState("https://feng37.fwh.is/ReactFeng37Bank/");
-            
+            // Check if there is a saved page URL in localStorage, otherwise default to the first link
+            const savedPage = localStorage.getItem("currentPage") || "https://feng37.fwh.is/ReactFeng37Bank/";
+            const [currentPage, setCurrentPage] = React.useState(savedPage);
+
+            // Save the selected page URL to localStorage
+            const handlePageChange = (url) => {
+                setCurrentPage(url);
+                localStorage.setItem("currentPage", url);
+            };
+
             return (
                 <div>
                     <div className="navbar">
                         {[
-                            { name: "鋒兄三七銀行", url: "https://feng37.fwh.is/ReactFeng37Bank/" },
-                            { name: "鋒兄三七銀行（備案）", url: "https://feng37.fwh.is/PHPFeng37Bank/" },
-                            { name: "鋒兄三七部落格", url: "https://feng37.fwh.is/wordpress/" },
-                            { name: "鋒兄三七錄取專區", url: "https://feng37.fwh.is/Enroll3Feng37/" },
-                            { name: "鋒兄三七 Udemy", url: "https://feng37.fwh.is/UdemyFeng37/" },
-                            { name: "影片擷取圖片小工具", url: "https://feng37.fwh.is/videoFeng37/" }
+                            { name: "銀行", url: "https://feng37.fwh.is/ReactFeng37Bank/" },
+                            { name: "銀行備案", url: "https://feng37.fwh.is/PHPFeng37Bank/" },
+                            { name: "銀行expo", url: "https://rncoursefeng37.expo.app/" },
+                            { name: "銀行Supabase", url: "https://feng37.fwh.is/SupabaseFeng37Bank/" },
+                            { name: "部落格", url: "https://feng37.fwh.is/wordpress/" },
+                            { name: "錄取專區", url: "https://feng37.fwh.is/Enroll3Feng37/" },
+                            { name: "Udemy", url: "https://feng37.fwh.is/UdemyFeng37/" },
+                            { name: "影片圖片", url: "https://feng37.fwh.is/videoFeng37/" },
+                            { name: "日期差(~0705，~1127)", url: "https://feng37.fwh.is/datediffFeng37/" },
+                            { name: "大位天定", url: "https://feng37.fwh.is/DestinedThroneFeng37" }
                         ].map((item, index) => (
-                            <a key={index} onClick={() => setCurrentPage(item.url)}>{item.name}</a>
+                            <a key={index} onClick={() => handlePageChange(item.url)}>{item.name}</a>
                         ))}
                     </div>
                     <div className="content">
@@ -69,7 +97,7 @@
                 </div>
             );
         }
-        
+
         ReactDOM.createRoot(document.getElementById("root")).render(<App />);
     </script>
 </body>
