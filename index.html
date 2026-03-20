@@ -6,36 +6,32 @@
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
-    <title>Feng37 作品展示中心</title>
-    <meta name="description" content="Feng37 多專案展示中心，提供即時預覽與快速切換入口。">
+    <title>Feng37 Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6.26.0/babel.min.js"></script>
     <style>
         :root {
             color-scheme: dark;
-            --bg: oklch(0.16 0.02 250);
-            --bg-deep: oklch(0.12 0.02 250);
-            --panel: color-mix(in oklab, #0f172a 78%, #11263f 22%);
-            --panel-soft: color-mix(in oklab, #101b33 72%, #163050 28%);
-            --panel-bright: color-mix(in oklab, #12213b 62%, #1a3b5d 38%);
-            --line: rgba(125, 164, 203, 0.18);
-            --line-strong: rgba(110, 244, 213, 0.32);
-            --text: oklch(0.92 0.01 250);
-            --text-soft: oklch(0.74 0.02 245);
-            --accent: oklch(0.78 0.14 196);
-            --accent-2: oklch(0.72 0.17 150);
-            --accent-3: oklch(0.66 0.16 228);
-            --danger: oklch(0.74 0.15 30);
-            --shadow: 0 28px 90px rgba(0, 0, 0, 0.32);
-            --radius-xl: 30px;
-            --radius-lg: 24px;
+            --bg: #050915;
+            --bg-2: #071120;
+            --panel: rgba(10, 20, 38, 0.88);
+            --panel-2: rgba(8, 16, 30, 0.92);
+            --line: rgba(116, 214, 255, 0.16);
+            --line-strong: rgba(116, 214, 255, 0.34);
+            --text: #edf6ff;
+            --text-soft: #8ea6c5;
+            --accent: #73d7ff;
+            --accent-2: #5ef0c2;
+            --accent-3: #6d83ff;
+            --shadow: 0 26px 90px rgba(0, 0, 0, 0.34);
+            --radius-xl: 28px;
+            --radius-lg: 22px;
             --radius-md: 18px;
-            --radius-sm: 14px;
-            --container: min(1480px, calc(100vw - 32px));
+            --container: min(1480px, calc(100vw - 28px));
         }
 
         * {
@@ -52,9 +48,9 @@
             font-family: "IBM Plex Sans", sans-serif;
             color: var(--text);
             background:
-                radial-gradient(circle at 20% 0%, rgba(14, 165, 233, 0.18), transparent 24%),
-                radial-gradient(circle at 100% 15%, rgba(34, 197, 94, 0.16), transparent 22%),
-                linear-gradient(180deg, #050b16 0%, #09111f 38%, #07111b 100%);
+                radial-gradient(circle at top left, rgba(115, 215, 255, 0.16), transparent 24%),
+                radial-gradient(circle at 100% 0%, rgba(94, 240, 194, 0.12), transparent 18%),
+                linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 52%, #060c16 100%);
         }
 
         body::before,
@@ -67,16 +63,14 @@
 
         body::before {
             background:
-                linear-gradient(rgba(119, 161, 203, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(119, 161, 203, 0.05) 1px, transparent 1px);
-            background-size: 42px 42px;
-            mask-image: radial-gradient(circle at center, black 55%, transparent 92%);
+                linear-gradient(rgba(115, 215, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(115, 215, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black 58%, transparent 92%);
         }
 
         body::after {
-            background:
-                linear-gradient(180deg, rgba(110, 244, 213, 0.05), transparent 18%),
-                linear-gradient(180deg, transparent, rgba(79, 105, 255, 0.08));
+            background: linear-gradient(180deg, rgba(115, 215, 255, 0.05), transparent 16%);
         }
 
         a,
@@ -88,62 +82,18 @@
         .app-shell {
             width: var(--container);
             margin: 0 auto;
-            padding: clamp(18px, 2.6vw, 36px) 0 36px;
-        }
-
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            padding: 0 4px 16px;
-        }
-
-        .brand {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-soft);
-            font-size: 0.92rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .brand-mark {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--accent-2));
-            box-shadow: 0 0 24px rgba(110, 244, 213, 0.42);
-        }
-
-        .top-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .meta-chip {
-            padding: 10px 14px;
-            border-radius: 999px;
-            border: 1px solid rgba(110, 244, 213, 0.16);
-            background: rgba(9, 20, 35, 0.72);
-            color: var(--text-soft);
-            font-size: 0.78rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            padding: clamp(16px, 2.8vw, 34px) 0 28px;
         }
 
         .hero {
             position: relative;
             overflow: hidden;
-            padding: clamp(26px, 4vw, 40px);
-            border: 1px solid rgba(110, 244, 213, 0.12);
+            padding: clamp(22px, 4vw, 36px);
+            border: 1px solid var(--line);
             border-radius: var(--radius-xl);
             background:
-                linear-gradient(140deg, rgba(10, 19, 34, 0.94), rgba(9, 17, 31, 0.88)),
-                linear-gradient(140deg, rgba(35, 211, 238, 0.08), transparent 40%);
+                linear-gradient(140deg, rgba(10, 18, 33, 0.96), rgba(8, 14, 26, 0.88)),
+                linear-gradient(140deg, rgba(115, 215, 255, 0.08), transparent 40%);
             box-shadow: var(--shadow);
             isolation: isolate;
         }
@@ -154,7 +104,7 @@
             inset: -1px;
             border-radius: inherit;
             padding: 1px;
-            background: linear-gradient(135deg, rgba(110, 244, 213, 0.28), rgba(110, 154, 244, 0.1), transparent 66%);
+            background: linear-gradient(135deg, rgba(115, 215, 255, 0.34), transparent 34%, rgba(94, 240, 194, 0.18));
             -webkit-mask:
                 linear-gradient(#000 0 0) content-box,
                 linear-gradient(#000 0 0);
@@ -166,34 +116,34 @@
         .hero::after {
             content: "";
             position: absolute;
-            width: 520px;
-            height: 520px;
-            right: -220px;
-            top: -220px;
+            width: 420px;
+            height: 420px;
+            right: -180px;
+            top: -180px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(49, 125, 255, 0.22), transparent 65%);
+            background: radial-gradient(circle, rgba(109, 131, 255, 0.24), transparent 68%);
             z-index: -1;
         }
 
         .hero-grid {
             display: grid;
-            grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-            gap: clamp(22px, 3vw, 34px);
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 22px;
             align-items: end;
         }
 
         .hero-copy {
-            max-width: 860px;
+            max-width: 760px;
         }
 
         .eyebrow {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 8px 14px;
+            padding: 9px 14px;
             border-radius: 999px;
-            background: rgba(10, 20, 35, 0.72);
-            border: 1px solid rgba(110, 244, 213, 0.18);
+            border: 1px solid rgba(115, 215, 255, 0.18);
+            background: rgba(9, 18, 32, 0.76);
             color: var(--accent);
             font-size: 0.76rem;
             font-weight: 700;
@@ -207,86 +157,74 @@
             height: 8px;
             border-radius: 50%;
             background: var(--accent);
-            box-shadow: 0 0 18px rgba(110, 244, 213, 0.52);
+            box-shadow: 0 0 18px rgba(115, 215, 255, 0.56);
         }
 
-        .hero-copy h1 {
+        .hero h1 {
             margin: 18px 0 0;
-            max-width: 9ch;
-            font-family: "Space Grotesk", sans-serif;
-            font-size: clamp(3.2rem, 8vw, 6.8rem);
-            line-height: 0.9;
-            letter-spacing: -0.06em;
+            font-family: "Orbitron", sans-serif;
+            font-size: clamp(2.6rem, 7vw, 5.6rem);
+            line-height: 0.93;
+            letter-spacing: -0.04em;
         }
 
-        .hero-copy p {
-            max-width: 52ch;
-            margin: 20px 0 0;
+        .hero p {
+            margin: 18px 0 0;
+            max-width: 46ch;
             color: var(--text-soft);
-            font-size: clamp(1rem, 2vw, 1.08rem);
+            font-size: clamp(0.98rem, 2vw, 1.08rem);
             line-height: 1.8;
         }
 
-        .hero-stats {
+        .hero-meta {
             display: grid;
-            gap: 14px;
+            gap: 12px;
         }
 
-        .stat-card {
-            position: relative;
-            overflow: hidden;
-            padding: 18px 20px;
+        .meta-card {
+            min-width: 220px;
+            padding: 16px 18px;
             border-radius: var(--radius-lg);
-            border: 1px solid rgba(110, 244, 213, 0.14);
-            background: linear-gradient(180deg, rgba(12, 23, 40, 0.95), rgba(11, 18, 31, 0.84));
+            border: 1px solid rgba(115, 215, 255, 0.16);
+            background: rgba(9, 18, 32, 0.8);
         }
 
-        .stat-card::after {
-            content: "";
-            position: absolute;
-            inset: auto 0 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            opacity: 0.74;
-        }
-
-        .stat-label {
+        .meta-label {
             display: block;
             color: var(--text-soft);
-            font-size: 0.72rem;
+            font-size: 0.74rem;
             font-weight: 700;
             letter-spacing: 0.12em;
             text-transform: uppercase;
         }
 
-        .stat-value {
+        .meta-value {
             display: block;
             margin-top: 10px;
-            font-family: "Space Grotesk", sans-serif;
-            font-size: clamp(1.5rem, 3vw, 2.4rem);
-            font-weight: 700;
-            letter-spacing: -0.05em;
+            font-family: "Orbitron", sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.9rem);
+            letter-spacing: -0.04em;
         }
 
         .workspace {
             display: grid;
-            grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
-            gap: clamp(16px, 2.3vw, 26px);
-            margin-top: 22px;
+            grid-template-columns: minmax(0, 430px) minmax(0, 1fr);
+            gap: 18px;
+            margin-top: 18px;
         }
 
         .catalog,
         .viewer {
             position: relative;
             overflow: hidden;
+            border: 1px solid var(--line);
             border-radius: var(--radius-xl);
-            border: 1px solid rgba(110, 244, 213, 0.12);
-            background: linear-gradient(180deg, rgba(8, 16, 29, 0.94), rgba(7, 13, 24, 0.9));
+            background: linear-gradient(180deg, rgba(8, 15, 28, 0.94), rgba(6, 11, 21, 0.9));
             box-shadow: var(--shadow);
         }
 
         .catalog {
-            padding: 18px;
+            padding: 16px;
         }
 
         .catalog::before,
@@ -295,7 +233,7 @@
             position: absolute;
             inset: 0;
             pointer-events: none;
-            background: linear-gradient(180deg, rgba(110, 244, 213, 0.04), transparent 16%);
+            background: linear-gradient(180deg, rgba(115, 215, 255, 0.04), transparent 16%);
         }
 
         .section-head,
@@ -303,17 +241,17 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 16px;
+            gap: 14px;
         }
 
         .section-head {
-            padding: 6px 4px 16px;
+            padding: 4px 2px 16px;
         }
 
         .section-head h2,
         .viewer-head h2 {
             margin: 0;
-            font-size: 1.02rem;
+            font-size: 1rem;
             font-weight: 700;
             letter-spacing: -0.03em;
         }
@@ -322,8 +260,23 @@
         .viewer-head p {
             margin: 6px 0 0;
             color: var(--text-soft);
-            font-size: 0.92rem;
-            line-height: 1.65;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .head-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(115, 215, 255, 0.16);
+            background: rgba(10, 18, 32, 0.76);
+            color: var(--text-soft);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            white-space: nowrap;
         }
 
         .catalog-list {
@@ -332,12 +285,11 @@
         }
 
         .project-card {
-            position: relative;
             width: 100%;
-            padding: 18px;
-            border: 1px solid rgba(125, 164, 203, 0.1);
+            padding: 16px;
             border-radius: var(--radius-md);
-            background: rgba(11, 19, 33, 0.82);
+            border: 1px solid rgba(115, 215, 255, 0.1);
+            background: rgba(10, 18, 31, 0.84);
             color: inherit;
             text-align: left;
             cursor: pointer;
@@ -346,102 +298,67 @@
 
         .project-card:hover {
             transform: translateY(-2px);
-            border-color: rgba(110, 244, 213, 0.24);
-            background: rgba(14, 24, 42, 0.94);
-            box-shadow: 0 18px 34px rgba(0, 0, 0, 0.24);
+            border-color: rgba(115, 215, 255, 0.24);
+            background: rgba(12, 21, 37, 0.94);
+            box-shadow: 0 18px 32px rgba(0, 0, 0, 0.22);
         }
 
         .project-card.active {
-            border-color: rgba(110, 244, 213, 0.34);
+            border-color: rgba(94, 240, 194, 0.3);
             background:
-                linear-gradient(135deg, rgba(24, 61, 96, 0.42), rgba(10, 18, 31, 0.96)),
-                rgba(12, 20, 35, 0.94);
-            box-shadow: 0 0 0 1px rgba(110, 244, 213, 0.1), 0 22px 44px rgba(0, 0, 0, 0.28);
+                linear-gradient(135deg, rgba(25, 57, 92, 0.5), rgba(8, 14, 26, 0.96)),
+                rgba(10, 18, 31, 0.96);
+            box-shadow: 0 0 0 1px rgba(94, 240, 194, 0.08), 0 22px 40px rgba(0, 0, 0, 0.26);
         }
 
-        .project-card.active::after {
-            content: "";
-            position: absolute;
-            inset: auto 18px 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        }
-
-        .project-topline {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .project-category,
-        .project-status,
-        .viewer-badge {
+        .project-index {
             display: inline-flex;
             align-items: center;
-            min-height: 32px;
-            padding: 7px 11px;
-            border-radius: 999px;
-            font-size: 0.76rem;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-
-        .project-category {
+            justify-content: center;
+            min-width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            border: 1px solid rgba(115, 215, 255, 0.16);
+            background: rgba(7, 14, 25, 0.88);
             color: var(--accent);
-            background: rgba(18, 39, 65, 0.9);
-            border: 1px solid rgba(110, 244, 213, 0.16);
+            font-family: "Orbitron", sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
         }
 
-        .project-status {
-            color: #b7cce3;
-            background: rgba(13, 25, 40, 0.94);
-            border: 1px solid rgba(125, 164, 203, 0.14);
+        .project-card strong {
+            display: block;
+            margin: 12px 0 0;
+            font-size: 1rem;
+            letter-spacing: -0.02em;
         }
 
-        .project-card h3 {
-            margin: 14px 0 8px;
-            font-size: 1.16rem;
-            letter-spacing: -0.03em;
-        }
-
-        .project-card p {
-            margin: 0;
+        .project-url {
+            display: block;
+            margin-top: 8px;
             color: var(--text-soft);
-            font-size: 0.95rem;
-            line-height: 1.65;
+            font-size: 0.84rem;
+            line-height: 1.5;
+            word-break: break-all;
         }
 
         .viewer {
             min-height: 78vh;
-            padding: 18px;
+            padding: 16px;
             display: grid;
             grid-template-rows: auto auto 1fr;
-            gap: 16px;
-        }
-
-        .viewer-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .viewer-badge {
-            color: var(--text-soft);
-            background: rgba(11, 21, 36, 0.86);
-            border: 1px solid rgba(125, 164, 203, 0.14);
+            gap: 14px;
         }
 
         .viewer-toolbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
             padding: 14px 16px;
             border-radius: var(--radius-md);
-            border: 1px solid rgba(125, 164, 203, 0.12);
-            background: rgba(9, 17, 31, 0.86);
+            border: 1px solid rgba(115, 215, 255, 0.12);
+            background: rgba(9, 17, 30, 0.84);
         }
 
         .toolbar-url {
@@ -449,29 +366,28 @@
             color: var(--text-soft);
             text-overflow: ellipsis;
             white-space: nowrap;
-            font-size: 0.92rem;
+            font-size: 0.9rem;
         }
 
         .toolbar-action {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-width: 146px;
+            min-width: 144px;
             padding: 12px 18px;
             border-radius: 999px;
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent-3) 100%);
-            color: #03111f;
-            font-size: 0.92rem;
-            font-weight: 800;
+            color: #04101d;
             text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 800;
             transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
-            box-shadow: 0 14px 32px rgba(45, 203, 255, 0.24);
+            box-shadow: 0 16px 32px rgba(115, 215, 255, 0.24);
         }
 
         .toolbar-action:hover {
             transform: translateY(-1px);
-            filter: saturate(1.1);
-            box-shadow: 0 18px 36px rgba(45, 203, 255, 0.3);
+            filter: saturate(1.08);
         }
 
         .frame-shell {
@@ -479,8 +395,8 @@
             min-height: 0;
             overflow: hidden;
             border-radius: 24px;
-            border: 1px solid rgba(110, 244, 213, 0.14);
-            background: linear-gradient(180deg, rgba(6, 12, 23, 0.98), rgba(10, 19, 32, 0.96));
+            border: 1px solid rgba(115, 215, 255, 0.14);
+            background: linear-gradient(180deg, rgba(6, 12, 23, 0.98), rgba(9, 18, 31, 0.94));
         }
 
         .frame-shell::before {
@@ -489,26 +405,16 @@
             inset: 0;
             pointer-events: none;
             background:
-                linear-gradient(180deg, rgba(110, 244, 213, 0.06), transparent 12%),
-                linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.18));
-            z-index: 2;
-        }
-
-        .frame-shell::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            background: linear-gradient(rgba(255, 255, 255, 0.02), transparent 2px);
-            background-size: 100% 6px;
-            opacity: 0.38;
+                linear-gradient(180deg, rgba(115, 215, 255, 0.05), transparent 12%),
+                linear-gradient(rgba(255, 255, 255, 0.02), transparent 2px);
+            background-size: 100% 100%, 100% 6px;
             z-index: 2;
         }
 
         iframe {
             width: 100%;
             height: 100%;
-            min-height: 62vh;
+            min-height: 64vh;
             border: none;
             background: white;
         }
@@ -523,7 +429,7 @@
         @keyframes rise {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(18px);
             }
             to {
                 opacity: 1;
@@ -531,43 +437,44 @@
             }
         }
 
-        @media (max-width: 1100px) {
+        @media (max-width: 1120px) {
             .hero-grid,
             .workspace {
                 grid-template-columns: 1fr;
             }
 
-            .viewer {
-                min-height: 70vh;
+            .hero-meta {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
         @media (max-width: 720px) {
             .app-shell {
-                width: min(100vw - 20px, 100%);
-                padding-top: 12px;
-            }
-
-            .topbar,
-            .section-head,
-            .viewer-head,
-            .viewer-toolbar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .hero-copy h1 {
-                max-width: none;
-            }
-
-            .toolbar-action {
-                width: 100%;
+                width: min(100vw - 18px, 100%);
+                padding-top: 10px;
             }
 
             .hero,
             .catalog,
             .viewer {
                 border-radius: 24px;
+            }
+
+            .hero h1 {
+                max-width: none;
+            }
+
+            .hero-meta,
+            .section-head,
+            .viewer-head,
+            .viewer-toolbar {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .toolbar-action {
+                width: 100%;
             }
 
             iframe {
@@ -590,138 +497,48 @@
     <div id="root"></div>
     <script type="text/babel">
         const projects = [
-            {
-                id: "react-bank",
-                name: "React Bank",
-                category: "網站應用",
-                status: "精選",
-                description: "以 React 打造的銀行系統展示，重點在前端互動、流程體驗與介面清晰度。",
-                url: "https://feng37.fwh.is/ReactFeng37Bank/"
-            },
-            {
-                id: "php-bank",
-                name: "PHP Bank",
-                category: "後端系統",
-                status: "穩定",
-                description: "以 PHP 為核心的銀行系統版本，呈現經典 Web 架構與資料處理方式。",
-                url: "https://feng37.fwh.is/PHPFeng37Bank/"
-            },
-            {
-                id: "expo-course",
-                name: "Expo App",
-                category: "行動應用",
-                status: "上線中",
-                description: "React Native 與 Expo 版本，用來展示跨平台行動介面與操作模式。",
-                url: "https://rncoursefeng37.expo.app/"
-            },
-            {
-                id: "supabase-bank",
-                name: "Supabase Bank",
-                category: "雲端架構",
-                status: "新技術",
-                description: "整合 Supabase 的銀行系統版本，聚焦現代資料基礎設施與即時服務能力。",
-                url: "https://feng37.fwh.is/SupabaseFeng37Bank/"
-            },
-            {
-                id: "wordpress-site",
-                name: "WordPress Site",
-                category: "內容管理",
-                status: "已發布",
-                description: "以內容管理為核心的 WordPress 入口，適合教學、發布與資訊整理。",
-                url: "https://feng37.fwh.is/wordpress/"
-            },
-            {
-                id: "enrollment",
-                name: "Enrollment System",
-                category: "實用工具",
-                status: "啟用中",
-                description: "報名流程系統，強調表單清楚、引導式輸入與任務完成效率。",
-                url: "https://feng37.fwh.is/Eroll3Feng37/"
-            },
-            {
-                id: "udemy",
-                name: "Udemy Showcase",
-                category: "學習資源",
-                status: "策展中",
-                description: "以課程內容與學習資源整理為主的展示頁，方便集中瀏覽與延伸學習。",
-                url: "https://feng37.fwh.is/UdemyFeng37/"
-            },
-            {
-                id: "video",
-                name: "Video Library",
-                category: "影音媒體",
-                status: "播放中",
-                description: "影片與影音內容入口，適合整理教學影片、播放頁面與媒體資源。",
-                url: "https://feng37.fwh.is/videoFeng37/"
-            },
-            {
-                id: "date-diff",
-                name: "Date Diff Tool",
-                category: "工具",
-                status: "實用",
-                description: "日期差計算工具，展示小型但實用的互動功能與工具型介面。",
-                url: "https://feng37.fwh.is/datediffFeng37/"
-            },
-            {
-                id: "hospital",
-                name: "Hospital System",
-                category: "系統平台",
-                status: "企業級",
-                description: "醫療系統導向的頁面，適合呈現資訊密度較高的流程與管理介面。",
-                url: "https://feng37.fwh.is/Hospital3Feng37"
-            },
-            {
-                id: "destined-throne",
-                name: "Destined Throne",
-                category: "創意作品",
-                status: "世界觀",
-                description: "帶有敘事感的創意作品頁，為整體作品集加入更鮮明的個性與層次。",
-                url: "https://feng37.fwh.is/DestinedThroneFeng37"
-            }
+            { name: "React Bank", url: "https://feng37.fwh.is/ReactFeng37Bank/" },
+            { name: "PHP Bank", url: "https://feng37.fwh.is/PHPFeng37Bank/" },
+            { name: "Expo App", url: "https://rncoursefeng37.expo.app/" },
+            { name: "Supabase Bank", url: "https://feng37.fwh.is/SupabaseFeng37Bank/" },
+            { name: "WordPress Site", url: "https://feng37.fwh.is/wordpress/" },
+            { name: "Enrollment System", url: "https://feng37.fwh.is/Eroll3Feng37/" },
+            { name: "Udemy Showcase", url: "https://feng37.fwh.is/UdemyFeng37/" },
+            { name: "Video Library", url: "https://feng37.fwh.is/videoFeng37/" },
+            { name: "Date Diff Tool", url: "https://feng37.fwh.is/datediffFeng37/" },
+            { name: "Hospital System", url: "https://feng37.fwh.is/Hospital3Feng37" },
+            { name: "Destined Throne", url: "https://feng37.fwh.is/DestinedThroneFeng37" }
         ];
 
         function App() {
-            const defaultProjectId = localStorage.getItem("currentProjectId") || projects[0].id;
-            const initialProject = projects.find((item) => item.id === defaultProjectId) || projects[0];
+            const savedPage = localStorage.getItem("currentPage") || projects[0].url;
+            const initialProject = projects.find((item) => item.url === savedPage) || projects[0];
             const [currentProject, setCurrentProject] = React.useState(initialProject);
 
-            const handleProjectChange = (project) => {
+            const handlePageChange = (project) => {
                 setCurrentProject(project);
-                localStorage.setItem("currentProjectId", project.id);
                 localStorage.setItem("currentPage", project.url);
             };
 
             return (
                 <div className="app-shell">
-                    <header className="topbar">
-                        <div className="brand">
-                            <span className="brand-mark"></span>
-                            <span>Feng37 Project Grid</span>
-                        </div>
-                        <div className="top-meta">
-                            <span className="meta-chip">2026-2027 Interface</span>
-                            <span className="meta-chip">Tech Display System</span>
-                        </div>
-                    </header>
-
                     <section className="hero">
                         <div className="hero-grid">
                             <div className="hero-copy">
-                                <span className="eyebrow">Feng37 數位作品入口</span>
-                                <h1>精選作品，一頁掌握。</h1>
+                                <span className="eyebrow">Feng37 Project Portal</span>
+                                <h1>Live preview. Rapid switch.</h1>
                                 <p>
-                                    以更科技化的介面語言重構作品首頁，保留原有內容與專案結構，
-                                    讓訪客能更快辨識每個系統的用途、類型與當前預覽狀態。
+                                    保留原本單頁入口與即時預覽的使用方式，只升級成更符合 2026-2027 的科技介面語言。
                                 </p>
                             </div>
-                            <div className="hero-stats">
-                                <div className="stat-card">
-                                    <span className="stat-label">作品數量</span>
-                                    <span className="stat-value">{projects.length}</span>
+                            <div className="hero-meta">
+                                <div className="meta-card">
+                                    <span className="meta-label">Projects</span>
+                                    <span className="meta-value">{projects.length}</span>
                                 </div>
-                                <div className="stat-card">
-                                    <span className="stat-label">目前焦點</span>
-                                    <span className="stat-value">{currentProject.name}</span>
+                                <div className="meta-card">
+                                    <span className="meta-label">Current</span>
+                                    <span className="meta-value">{currentProject.name}</span>
                                 </div>
                             </div>
                         </div>
@@ -731,28 +548,22 @@
                         <aside className="catalog">
                             <div className="section-head">
                                 <div>
-                                    <h2>作品索引</h2>
-                                    <p>左側維持作品清單，右側保留即時預覽與外部開啟入口，僅更新視覺表現。</p>
+                                    <h2>Project Switchboard</h2>
+                                    <p>維持原本的作品切換功能，僅重做介面呈現與科技風格質感。</p>
                                 </div>
-                                <div className="viewer-badges">
-                                    <span className="viewer-badge">科技風格</span>
-                                    <span className="viewer-badge">即時預覽</span>
-                                </div>
+                                <span className="head-chip">Realtime Preview</span>
                             </div>
                             <div className="catalog-list">
-                                {projects.map((project) => (
+                                {projects.map((project, index) => (
                                     <button
-                                        key={project.id}
+                                        key={project.url}
                                         type="button"
-                                        className={`project-card ${currentProject.id === project.id ? "active" : ""}`}
-                                        onClick={() => handleProjectChange(project)}
+                                        className={`project-card ${currentProject.url === project.url ? "active" : ""}`}
+                                        onClick={() => handlePageChange(project)}
                                     >
-                                        <div className="project-topline">
-                                            <span className="project-category">{project.category}</span>
-                                            <span className="project-status">{project.status}</span>
-                                        </div>
-                                        <h3>{project.name}</h3>
-                                        <p>{project.description}</p>
+                                        <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
+                                        <strong>{project.name}</strong>
+                                        <span className="project-url">{project.url}</span>
                                     </button>
                                 ))}
                             </div>
@@ -762,12 +573,9 @@
                             <div className="viewer-head">
                                 <div>
                                     <h2>{currentProject.name}</h2>
-                                    <p>{currentProject.description}</p>
+                                    <p>{currentProject.url}</p>
                                 </div>
-                                <div className="viewer-badges">
-                                    <span className="viewer-badge">{currentProject.category}</span>
-                                    <span className="viewer-badge">{currentProject.status}</span>
-                                </div>
+                                <span className="head-chip">Active Link</span>
                             </div>
 
                             <div className="viewer-toolbar">
@@ -778,7 +586,7 @@
                                     target="_blank"
                                     rel="noreferrer"
                                 >
-                                    開啟網站
+                                    Open Site
                                 </a>
                             </div>
 
