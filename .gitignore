@@ -1,2 +1,6 @@
 *.zip
 *-master/
+_eroll3_remote/
+_hospital3_remote/
+**/__http_err.txt
+**/__http_out.txt
